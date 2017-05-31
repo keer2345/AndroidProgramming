@@ -17,6 +17,7 @@ public class QuizActivity extends AppCompatActivity {
     private TextView mQuestionTextView;
 
     private static final String TAG = "QuizActivity";
+    private static final String KEY_INDEX = "index";
 
     private Question[] mQuestionBank = new Question[]{
             new Question(R.string.question_oceans, true),
@@ -110,7 +111,18 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        }
+
         updateQuestion();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(TAG, "onSaveInstanceState");
+        outState.putInt(KEY_INDEX, mCurrentIndex);
     }
 
     @Override
